@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Invoice Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h1 class="h5 mb-0">Invoice Details</h1>
+        </div>
+        <div class="card-body">
+            <p><strong>Invoice Number:</strong> {{ invoice.invoice_number }}</p>
+            <p><strong>Customer:</strong> {{ invoice.customer.name }}</p>
+            <p><strong>Amount Due:</strong> ${{ invoice.amount_due }}</p>
+            <p><strong>Status:</strong>
+                <span class="badge
+                    {% if invoice.status == 'paid' %}bg-success{% elif invoice.status == 'unpaid' %}bg-warning{% elif invoice.status == 'overdue' %}bg-danger{% else %}bg-secondary{% endif %}">
+                    {{ invoice.get_status_display }}
+                </span>
+            </p>
+            <p><strong>Notes:</strong> {{ invoice.notes|default:"No notes available." }}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{% url 'invoice_update' invoice.pk %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'invoice_delete' invoice.pk %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'invoice_list' %}" class="btn btn-secondary">Back to Invoices</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

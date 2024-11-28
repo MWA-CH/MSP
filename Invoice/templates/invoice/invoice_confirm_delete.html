@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Invoice{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h1 class="h5 mb-0">Delete Invoice</h1>
+        </div>
+        <div class="card-body">
+            <p class="mb-4">Are you sure you want to delete Invoice <strong>{{ invoice.invoice_number }}</strong>?</p>
+            <form method="post" class="d-flex justify-content-between">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <a href="{% url 'invoice_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
